@@ -8,7 +8,16 @@ resource "tls_private_key" "example" {
   rsa_bits  = 4096
 }
 
+resource "vault_mount" "kvv2" {
+  path        = "kvv2"
+  type        = "kv"
+  options     = { version = "2" }
+  description = "KV Version 2 secret engine mount"
+}
+
 resource "vault_kv_secret_v2" "ssh_keys" {
+  mount                      = vault_mount.kvv2.path
+  name                       = "secret"
   path = "secret/data/ssh_keys"
 
   data_json = jsonencode({
