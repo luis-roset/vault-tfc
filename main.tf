@@ -26,7 +26,7 @@ resource "vault_kv_secret_v2" "ssh_keys" {
 }
 
 data "vault_generic_secret" "example" {
-  path = "secret/data/ssh_keys"
+  path = vault_kv_secret_v2.ssh_keys.path
 }
 
 output "private_key" {
