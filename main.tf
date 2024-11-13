@@ -17,8 +17,7 @@ resource "vault_mount" "kvv2" {
 
 resource "vault_kv_secret_v2" "ssh_keys" {
   mount                      = vault_mount.kvv2.path
-  name                       = "secret"
-  path = "secret/data/ssh_keys"
+  name                       = "ssh_keys"
 
   data_json = jsonencode({
     private_key = tls_private_key.example.private_key_pem
